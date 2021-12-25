@@ -20,22 +20,22 @@ def Submit(wideo):
     try:
         wideo = str(Entry1.get())
         print(wideo)
-        Entry1.delete(0,"end")
+        Entry1.delete(0, "end")
 
         yt = YouTube(wideo)
-        print("Title: ",yt.title)
-        print("Number of views: ",yt.views)
-        print("Length of video: ",yt.length//60, "min", yt.length%60, "sec")
+        print("Title: ", yt.title)
+        print("Number of views: ", yt.views)
+        print("Length of video: ", yt.length//60, "min", yt.length%60, "sec")
         ys = yt.streams.get_by_resolution(resolution = quality)
         print("Downloading...")
         ##ys.download(output_path = "V:")
         ys.download(output_path = download_folder)
         print("Download completed!!")
-        Label2.config(text="Download completed!!")
+        Label2.config(text = "Download completed!!")
 
     except:
         print("Download ERROR!!")
-        Label2.config(text="Download ERROR!!")
+        Label2.config(text = "Download ERROR!!")
         
 def ShowChoice():
     global quality 
@@ -43,16 +43,16 @@ def ShowChoice():
     print(quality)
 
 
-Label1 = Label( root, 
-            text=
+Label1 = Label(root, 
+            text =
 """YouTube  LINK: 
 (press Enter to download)""",
             )
 #Label1.pack(side = LEFT)
 Label1.pack()
 
-Entry1 = Entry( root,
-            bd =5,
+Entry1 = Entry(root,
+            bd=5,
             width=52,
             )
 #Entry1.pack(side = RIGHT)
@@ -67,14 +67,14 @@ YT_quality = [
     #("144p", "144p"),
     #("240p", "240p"),
     ("360p", "360p"),
-   	#("480p", "480p"),
+    #("480p", "480p"),
     ("720p", "720p"),
     #("1080p", "1080p"),
     ]
 
 
 tk.Label(root, 
-         text=
+         text =
 """Choose quality:""",
          #justify = tk.LEFT,
          pady = 15,
@@ -82,20 +82,20 @@ tk.Label(root,
 
 for YT_quality, val in YT_quality:
     tk.Radiobutton(root, 
-                   text=YT_quality,
+                   text = YT_quality,
                    padx = 20,
-                   width=5, 
-                   variable=v, 
-                   command=ShowChoice,
+                   width = 5, 
+                   variable = v, 
+                   command = ShowChoice,
                    indicatoron = 0,
-                   value=val,
-                   ).pack(anchor=CENTER)
+                   value = val,
+                   ).pack(anchor = CENTER)
 
 v.set(quality)  # initializing the choice
 value.set(quality) # initializing the choice
 
-Label2 = Label( root, 
-            text="",
+Label2 = Label(root, 
+            text = "",
             pady = 5,
             )
 Label2.pack()
@@ -111,6 +111,5 @@ Label2.pack()
 #             )
 # E2.pack(side = RIGHT)
 # E2.insert(0,"D:\Pobrane Pliki")
-
 
 root.mainloop()
