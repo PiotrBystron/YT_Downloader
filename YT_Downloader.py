@@ -28,7 +28,6 @@ def Submit(wideo):
         print("Length of video: ", yt.length//60, "min", yt.length%60, "sec")
         ys = yt.streams.get_by_resolution(resolution = quality)
         print("Downloading...")
-        ##ys.download(output_path = "V:")
         ys.download(output_path = download_folder)
         print("Download completed!!")
         Label2.config(text = "Download completed!!")
@@ -59,7 +58,6 @@ Entry1 = Entry(root,
 Entry1.pack()
 Entry1.bind('<Key-Return>', Submit)
 
-
 v = tk.StringVar()
 value = tk.StringVar()
 
@@ -71,7 +69,6 @@ YT_quality = [
     ("720p", "720p"),
     #("1080p", "1080p"),
     ]
-
 
 tk.Label(root, 
          text =
