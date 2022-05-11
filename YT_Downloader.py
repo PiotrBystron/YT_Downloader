@@ -6,6 +6,7 @@ import tkinter as tk
 from pytube import YouTube
 import keyboard
 import youtube_dl
+from winotify import Notification, audio
 
 
 root = tk.Tk()
@@ -67,11 +68,10 @@ def Submit(wideo):
         if quality == "opus":
             ydl_opts = {
             'format': 'bestaudio/best',
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',
-                'preferredquality': '192',
-                }],
+            'postprocessors': [{'key': 'FFmpegExtractAudio',
+                                'preferredcodec': 'mp3',
+                                'preferredquality': '192',
+                                }],
             }
             with youtube_dl.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([wideo])
@@ -84,16 +84,27 @@ def Submit(wideo):
         print("Download completed!!")
         Label2.config(text = "Download completed!!")
         Label3.config(text = yt.title)
+        w10notification("Download completed!!", yt.title)
 
     except:
         print("Download ERROR!!")
         Label2.config(text = "Download ERROR!!")
         Label3.config(text = yt.title)
+        w10notification("Download ERROR!!", yt.title)
 
 def ShowChoice():
     global quality 
     quality = v.get()
     print(quality)
+
+def w10notification(title, msg):
+    toast = Notification(app_id = "Youtube Downloader",
+                        title = title,
+                        msg = msg,
+                        duration = "short",
+                        )
+    toast.set_audio(audio.Default, loop=False)
+    toast.show()
 
 
 Label1 = Label(root, text =
@@ -105,7 +116,6 @@ Entry1 = Entry(root, bd=2, width=50, justify=CENTER,)
 Entry1.focus()
 Entry1.pack()
 Entry1.bind('<Key-Return>', Submit)
-
 
 v = tk.StringVar()
 value = tk.StringVar()
@@ -120,9 +130,9 @@ YT_quality = [
     ("Audio", "opus"),
     ]
 
-tk.Label(root, text =
-"""Choose quality:""",
-         pady = 5,).pack()
+tk.Label(root, 
+        text = "Choose quality:",
+        pady = 5,).pack()
 
 for YT_quality, val in YT_quality:
     tk.Radiobutton(root, 
@@ -138,7 +148,7 @@ for YT_quality, val in YT_quality:
 v.set(quality)  # initializing the choice
 value.set(quality) # initializing the choice
 
-# Download completed / Download ERROR 
+# Download completed/ERROR info
 Label2 = Label(root, text = "", pady = 2,)
 Label2.pack()
 
